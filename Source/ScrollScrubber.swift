@@ -246,12 +246,11 @@ class ScrollScrubber: NSObject, UIScrollViewDelegate {
 
     fileprivate func height() -> CGFloat {
         guard let currentPage = delegate?.currentPage,
-            let pageHeight = folioReader.readerCenter?.pageHeight,
             let webView = currentPage.webView else {
                 return 0
         }
 
-        return webView.scrollView.contentSize.height - pageHeight + 44
+        return webView.scrollView.contentSize.height - webView.scrollView.frame.height
     }
     
     fileprivate func scrollTop() -> CGFloat {
