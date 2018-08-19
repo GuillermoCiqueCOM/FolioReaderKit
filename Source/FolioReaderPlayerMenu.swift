@@ -42,7 +42,16 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         view.addGestureRecognizer(tapGesture)
 
         // Menu view
-        menuView = UIView(frame: CGRect(x: 0, y: view.frame.height-165, width: view.frame.width, height: view.frame.height))
+        let bottomPadding: CGFloat
+        if #available(iOS 11.0, *),
+            let window = UIApplication.shared.keyWindow {
+            bottomPadding = window.safeAreaInsets.bottom
+        } else {
+            // Fallback on earlier versions
+            bottomPadding = 0
+        }
+        let visibleHeight: CGFloat = 165 + bottomPadding
+        menuView = UIView(frame: CGRect(x: 0, y: view.frame.height-visibleHeight, width: view.frame.width, height: view.frame.height))
         menuView.backgroundColor = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, UIColor.white)
         menuView.autoresizingMask = .flexibleWidth
         menuView.layer.shadowColor = UIColor.black.cgColor
